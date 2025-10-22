@@ -1,0 +1,639 @@
+/* ==================================== */
+/* 1. ESTILOS GENERALES Y RESET         */
+/* ==================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Fuente monoespacio para el toque de código/hacker */
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+body {
+    /* Fondo oscuro: Azul medianoche profundo */
+    background-color: #0A192F;
+    /* Color de texto principal: Verde neón brillante */
+    color: #C3E88D;
+    line-height: 1.6;
+}
+
+/* Estilo para todas las secciones */
+section {
+    padding: 5rem 5%;
+    /* Separador sutil de líneas de código */
+    border-bottom: 1px dashed #1A2D4A;
+}
+
+/* Títulos de sección (h2) */
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #F78C6C;
+    /* Color de encabezado: Naranja/Rojo neón */
+    text-shadow: 0 0 5px rgba(247, 140, 108, 0.5);
+}
+
+/* ==================================== */
+/* 2. HEADER Y NAVEGACIÓN               */
+/* ==================================== */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    /* Fondo oscuro con un poco de transparencia */
+    background-color: rgba(10, 25, 47, 0.95);
+    /* Sombra de neón sutil */
+    box-shadow: 0 0 15px rgba(130, 170, 255, 0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    height: 80px;
+    width: 80px;
+    /* Borde de neón */
+    border: #82AAFF 2px solid;
+    border-radius: 4px;
+    display: block;
+    /* Estilo circular para el logo */
+    border-radius: 50%;
+    /* Imagen de fondo (ajustar la ruta a tu logo pixelado) */
+    background-image: url(/img/logo-pixel.png);
+    background-position: center;
+    background-size: cover;
+}
+
+/* Enlaces de navegación */
+.header-container a {
+    text-decoration: none;
+    color: #C3E88D;
+    /* Color neón */
+    font-weight: 500;
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #82AAFF;
+    /* Azul eléctrico al pasar el ratón */
+    text-shadow: 0 0 8px #82AAFF;
+    /* Efecto de brillo */
+}
+
+/* ==================================== */
+/* 3. SECCIÓN INICIO (HOME)             */
+/* ==================================== */
+header {
+    padding: 10rem 5% 5rem;
+    text-align: center;
+    /* Gradiente sutil para profundidad digital */
+    background: linear-gradient(135deg, #0A192F 0%, #1A2D4A 100%);
+    color: white;
+    margin-top: 60px;
+    /* Borde inferior de acento */
+    border-bottom: 2px solid #82AAFF;
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #F78C6C;
+    text-shadow: 0 0 10px rgba(247, 140, 108, 0.8);
+}
+
+header p {
+    font-size: 1.3rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: #B3C0D9;
+}
+
+/* Botón CTA */
+.cta-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: #82AAFF;
+    /* Azul eléctrico */
+    color: #0A192F;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(130, 170, 255, 0.7);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    background-color: #C3E88D;
+    /* Verde neón al hacer hover */
+    color: #0A192F;
+    box-shadow: 0 0 20px rgba(195, 232, 141, 0.9);
+}
+
+/* ==================================== */
+/* 4. SECCIÓN SOBRE MÍ                  */
+/* ==================================== */
+#about-us {
+    background-color: #0A192F;
+}
+
+/* Se ajustó el margen a 10px y el text-align a justify para los párrafos en About Me */
+#about-us p {
+    max-width: 900px;
+    margin: 10px auto;
+    font-size: 1.1rem;
+    text-align: justify;
+    color: #B3C0D9;
+}
+
+#about-us ul {
+    max-width: 900px;
+    margin: 10px auto;
+    text-align: justify;
+}
+
+#about-us li {
+    margin-bottom: 1rem;
+    color: #B3C0D9;
+}
+
+/* ==================================== */
+/* 5. SECCIÓN PROYECTOS                 */
+/* ==================================== */
+#projects {
+    background-color: #0A192F;
+}
+
+.container-principal {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Tarjeta de Proyecto */
+.container-card {
+    background-color: #1A2D4A;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #82AAFF;
+    box-shadow: 0 0 10px rgba(130, 170, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.container-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(195, 232, 141, 0.3);
+    border-color: #C3E88D;
+}
+
+.subtitle {
+    padding: 1.5rem 1.5rem 0.5rem;
+    border-bottom: 1px dashed #1A2D4A;
+}
+
+.subtitle h3 {
+    font-size: 1.5rem;
+    color: #C3E88D;
+}
+
+/* ==================================== */
+/* 6. CARRUSEL DE PROYECTOS             */
+/* ==================================== */
+.carrusel {
+    position: relative;
+    height: 400px;
+    background-color: #0A192F;
+    overflow: hidden;
+    border-bottom: 1px solid #1A2D4A;
+}
+
+.carrusel-imagenes {
+    display: flex;
+    width: 100%;
+    /* Cambiado: ahora es 100% del contenedor */
+    height: 90%;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* CORRECCIÓN: Cada imagen debe ocupar el 100% del ancho del contenedor padre */
+.carrusel-imagenes img {
+    width: 100%;
+    /* Cada imagen ocupa el 100% del contenedor .carrusel */
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    flex-shrink: 0;
+    /* Importante: evita que las imágenes se encojan */
+}
+
+/* Botones de navegación del carrusel */
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(10, 25, 47, 0.7);
+    color: #C3E88D;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    z-index: 10;
+    /* Asegura que esté por encima de las imágenes */
+}
+
+.carrusel-btn:hover {
+    background-color: rgba(195, 232, 141, 0.9);
+    color: #0A192F;
+}
+
+.carrusel-btn.prev {
+    left: 10px;
+}
+
+.carrusel-btn.next {
+    right: 10px;
+}
+
+/* Indicadores de puntos del carrusel */
+.carrusel-nav {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+    /* Asegura que esté por encima de las imágenes */
+}
+
+.carrusel-nav .punto {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(195, 232, 141, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.carrusel-nav .punto.activo {
+    background-color: #C3E88D;
+    box-shadow: 0 0 10px #C3E88D;
+    transform: scale(1.2);
+}
+
+.carrusel-nav .punto:hover {
+    background-color: #C3E88D;
+    transform: scale(1.1);
+}
+
+/* ==================================== */
+/* 7. CONTENIDO DE TARJETAS DE PROYECTOS */
+/* ==================================== */
+.text-card {
+    padding: 1.5rem;
+    color: #B3C0D9;
+}
+
+.text-card p {
+    margin-bottom: 1rem;
+    /* Justificado para los párrafos de las tarjetas */
+    text-align: justify;
+}
+
+.text-card ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.text-card li {
+    margin-bottom: 0.5rem;
+    /* Viñeta de neón */
+    list-style-type: '⚡ ';
+}
+
+/* Tags de tecnología */
+.tech-tag {
+    display: inline-block;
+    background-color: #0A192F;
+    color: #82AAFF;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #82AAFF;
+}
+
+/* ==================================== */
+/* 8. SECCIÓN CONTACTO                  */
+/* ==================================== */
+#contact {
+    background-color: #0A192F;
+    color: #C3E88D;
+}
+
+.contact-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    color: #82AAFF;
+    /* Simula la salida de un comando */
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-info h3 {
+    color: #F78C6C;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #1A2D4A;
+    padding-bottom: 0.5rem;
+}
+
+/* Estilo de línea de comando para los datos */
+.data-line {
+    background-color: #1A2D4A;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-left: 5px solid #C3E88D;
+    /* Barra de color como indicador */
+    font-size: 1rem;
+}
+
+/* Estilos de neón para enlaces y texto */
+.neon-link {
+    color: #82AAFF;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.neon-link:hover {
+    color: #C3E88D;
+    text-shadow: 0 0 5px #C3E88D;
+}
+
+.neon-text {
+    color: #C3E88D;
+    text-shadow: 0 0 5px #C3E88D;
+}
+
+/* Enlaces Sociales */
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-start;
+}
+
+.social-links a {
+    color: #82AAFF;
+    font-size: 2rem;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-links a:hover {
+    color: #F78C6C;
+    text-shadow: 0 0 10px #F78C6C;
+    transform: translateY(-3px);
+}
+
+/* Formulario de contacto */
+.contact-form h3 {
+    color: #F78C6C;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #1A2D4A;
+    padding-bottom: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #C3E88D;
+}
+
+/* Estilo de input/textarea tipo terminal */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #0A192F;
+    border: 1px solid #82AAFF;
+    color: #B3C0D9;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #C3E88D;
+    box-shadow: 0 0 5px rgba(195, 232, 141, 0.5);
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.send-button {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* ==================================== */
+/* 9. PIE DE PÁGINA (FOOTER)            */
+/* ==================================== */
+footer {
+    background-color: #1A2D4A;
+    color: #B3C0D9;
+    text-align: center;
+    padding: 2rem 5%;
+    font-size: 0.9rem;
+    border-top: 1px solid #0A192F;
+}
+
+.footer-text {
+    margin: 0.5rem 0;
+}
+
+/* Estilo de línea de comando en el footer */
+.footer-text:first-child {
+    color: #F78C6C;
+    font-weight: bold;
+}
+
+/* ==================================== */
+/* 10. MEDIA QUERIES (RESPONSIVE) - MEJORADO */
+/* ==================================== */
+
+/* Tabletas y escritorios pequeños (hasta 1024px) */
+@media (max-width: 1024px) {
+    /* Header/Nav */
+    nav {
+        gap: 1.5rem;
+    }
+
+    /* Inicio */
+    header h1 {
+        font-size: 3rem;
+    }
+
+    header p {
+        font-size: 1.2rem;
+    }
+
+    /* Proyectos */
+    .container-principal {
+        /* Permite que las tarjetas fluyan en dos columnas si hay espacio (o 1 grande) */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+/* Móviles grandes y Tabletas pequeñas (hasta 768px) */
+@media (max-width: 768px) {
+
+    section {
+        padding: 4rem 5%; /* Menos padding vertical para más contenido visible */
+    }
+
+    /* Títulos */
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Header/Nav: Colapsa la navegación */
+    .header-container {
+        flex-direction: column;
+        align-items: center; /* Centra el logo y la nav */
+        padding: 0.8rem 5%;
+    }
+
+    .logo-container {
+        margin-bottom: 0.5rem; /* Reduce el espacio */
+    }
+
+    nav {
+        /* Oculta los enlaces grandes por defecto. Aquí podrías implementar un menú hamburguesa con JS si fuera necesario, pero por ahora los mantenemos visibles pero más compactos. */
+        width: 100%;
+        justify-content: center;
+        gap: 0.8rem;
+        flex-wrap: wrap; /* Si hay muchos, envuélvelos */
+        font-size: 0.9rem;
+    }
+    
+    /* Home */
+    header {
+        padding: 12rem 5% 4rem; /* Más espacio en la parte superior para compensar la nav fija */
+        margin-top: 0;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    /* Proyectos: Una sola columna para móviles */
+    .container-principal {
+        grid-template-columns: 1fr;
+    }
+
+    /* Contacto: Pila vertical */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Carrusel */
+    .carrusel {
+        height: 220px;
+    }
+
+    .carrusel-btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+
+    /* Base */
+    section {
+        padding: 3rem 4%; /* Reduce aún más el padding lateral */
+    }
+
+    /* Header */
+    .header-container {
+        padding: 0.5rem 4%;
+    }
+
+    .logo {
+        height: 60px;
+        width: 60px;
+    }
+
+    nav {
+        flex-direction: column; /* Apila los enlaces de la nav si es muy larga */
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Home */
+    header {
+        padding: 10rem 4% 3rem;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    /* Contenido */
+    #about-us p, #about-us li {
+        font-size: 1rem; /* Mantiene la legibilidad */
+    }
+
+    .subtitle h3 {
+        font-size: 1.2rem;
+    }
+
+    .carrusel {
+        height: 180px;
+    }
+
+    /* Footer */
+    footer {
+        padding: 1.5rem 4%;
+    }
+}
