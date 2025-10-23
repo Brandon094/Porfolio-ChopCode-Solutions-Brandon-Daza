@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -6,6 +6,7 @@ import smtplib
 import os
 from email.mime.text import MimeText
 from email.mime.multipart import MIMEMultipart
+import json
 
 app = FastAPI(title="Portfolio Backend", version="1.0.0")
 
@@ -15,7 +16,6 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "https://tu-frontend.vercel.app",  # Cambia por tu dominio real
         "https://porfolio-chop-code-solutions-brando.vercel.app",
         "*",  # Temporal para pruebas
     ],
@@ -24,12 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 class ContactForm(BaseModel):
     name: str
     email: str
     message: str
-
 
 def send_email(name: str, email: str, message: str) -> bool:
     """
@@ -114,16 +112,13 @@ def send_email(name: str, email: str, message: str) -> bool:
         print(f"❌ Error enviando email: {e}")
         return False
 
-
 @app.get("/")
 async def root():
     return {"message": "Backend del portafolio de Brandon Daza funcionando ✅"}
 
-
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "portfolio-backend"}
-
 
 @app.post("/api/contact")
 async def contact_form(contact: ContactForm):
@@ -166,3 +161,49 @@ async def contact_form(contact: ContactForm):
             status_code=500,
             detail="Error interno del servidor. Por favor, intenta más tarde.",
         )
+
+# =============================================
+# HANDLER PARA VERCEL SERVERLESS FUNCTIONS
+# =============================================
+
+async def handler(request: Request):
+    """
+    Handler para Vercel Serverless Functions
+    """
+    try:
+        # Obtener método y path
+        method = request.method
+        path = request.url.path
+        
+        print(f"🔍 Vercel Handler: {method} {path}")
+        
+        # Manejar rutas específicas
+        if path == "/api/contact" and method == "POST":
+            # Procesar formulario de contacto
+            body = await request.json()
+            contact = ContactForm(**body)
+            return await contact_form(contact)
+            
+        elif path == "/" and method == "GET":
+            return JSONResponse(content={"message": "Backend funcionando ✅"})
+            
+        elif path == "/health" and method == "GET":
+            return JSONResponse(content={"status": "healthy", "service": "portfolio-backend"})
+            
+        else:
+            return JSONResponse(
+                status_code=404,
+                content={"error": f"Endpoint no encontrado: {method} {path}"}
+            )
+            
+    except Exception as e:
+        print(f"🔥 Error en handler: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": f"Error interno: {str(e)}"}
+        )
+
+# Función alternativa que Vercel también puede buscar
+def main(request):
+    import asyncio
+    return asyncio.run(handler(request))
