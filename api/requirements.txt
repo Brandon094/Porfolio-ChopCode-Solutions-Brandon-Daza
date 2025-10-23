@@ -1,4 +1,71 @@
+"""
+requirements.txt - Archivo de dependencias para el backend del portfolio
+Autor: Brandon Daza
+Descripción: Especifica las versiones exactas de las dependencias para garantizar compatibilidad
+"""
+
+# =============================================
+# FRAMEWORK WEB PRINCIPAL
+# =============================================
 fastapi==0.104.1
+# FastAPI - Framework web moderno y rápido para construir APIs con Python 3.6+
+# Características:
+# - Alto rendimiento
+# - Fácil de usar
+# - Generación automática de documentación OpenAPI
+# - Soporte nativo para async/await
+# - Validación de datos integrada con Pydantic
+
+# =============================================
+# VALIDACIÓN DE DATOS Y ESQUEMAS
+# =============================================
 pydantic==2.5.0
+# Pydantic - Biblioteca de validación de datos y manejo de settings usando type hints
+# Funcionalidades:
+# - Validación de tipos en tiempo de ejecución
+# - Serialización y deserialización de datos
+# - Esquemas JSON automáticos
+# - Configuración mediante clases con type hints
+# - Manejo de errores detallado
+
+# =============================================
+# MANEJO DE FORMULARIOS MULTIPART
+# =============================================
 python-multipart==0.0.6
+# python-multipart - Analizador de formularios multipart para Python
+# Necesario para:
+# - Parsear datos de formularios HTML
+# - Manejar file uploads
+# - Procesar content-type multipart/form-data
+# - Integración con FastAPI para forms
+
+# =============================================
+# SERVIDOR ASYNCIO PARA DESARROLLO
+# =============================================
 uvicorn==0.24.0
+# Uvicorn - Servidor ASGI de alto rendimiento
+# Propósito:
+# - Servir aplicaciones FastAPI en desarrollo y producción
+# - Soporte para HTTP/1.1 y WebSockets
+# - Basado en uvloop y httptools para máximo rendimiento
+# - Recarga automática en desarrollo (con --reload)
+
+# =============================================
+# DEPENDENCIAS IMPLÍCITAS (instaladas automáticamente)
+# =============================================
+# starlette==0.27.0 - Framework ASGI subyacente de FastAPI
+# typing-extensions - Soporte para type hints avanzados
+# email-validator - Validación de direcciones de email (para Pydantic)
+# anyio - Abstracción de event loop para async
+
+# =============================================
+# NOTAS DE INSTALACIÓN
+# =============================================
+# Para instalar todas las dependencias:
+# pip install -r requirements.txt
+
+# Para desarrollo con recarga automática:
+# uvicorn main:app --reload --port 8000
+
+# Para producción:
+# uvicorn main:app --host 0.0.0.0 --port 8000

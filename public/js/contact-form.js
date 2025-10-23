@@ -19,7 +19,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
         submitButton.textContent = '🔄 Enviando...';
 
         // URL de tu backend en Render/Vercel
-        const backendUrl = 'https://tu-app.render.com/api/contact'; // Cambia por tu URL
+        const backendUrl = 'https://porfolio-chop-code-solutions-brando.vercel.app/api/contact-form'; // Cambia por tu URL
 
         const response = await fetch(backendUrl, {
             method: 'POST',
