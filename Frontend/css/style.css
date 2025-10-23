@@ -62,7 +62,7 @@ h2 {
     /* Estilo circular para el logo */
     border-radius: 50%;
     /* Imagen de fondo (ajustar la ruta a tu logo pixelado) */
-    background-image: url(/img/logo-pixel.png);
+    background-image: url(../img/logo-pixel.png);
     background-position: center;
     background-size: cover;
 }
@@ -495,6 +495,7 @@ footer {
 
 /* Tabletas y escritorios pequeños (hasta 1024px) */
 @media (max-width: 1024px) {
+
     /* Header/Nav */
     nav {
         gap: 1.5rem;
@@ -520,7 +521,8 @@ footer {
 @media (max-width: 768px) {
 
     section {
-        padding: 4rem 5%; /* Menos padding vertical para más contenido visible */
+        padding: 4rem 5%;
+        /* Menos padding vertical para más contenido visible */
     }
 
     /* Títulos */
@@ -532,12 +534,14 @@ footer {
     /* Header/Nav: Colapsa la navegación */
     .header-container {
         flex-direction: column;
-        align-items: center; /* Centra el logo y la nav */
+        align-items: center;
+        /* Centra el logo y la nav */
         padding: 0.8rem 5%;
     }
 
     .logo-container {
-        margin-bottom: 0.5rem; /* Reduce el espacio */
+        margin-bottom: 0.5rem;
+        /* Reduce el espacio */
     }
 
     nav {
@@ -545,13 +549,15 @@ footer {
         width: 100%;
         justify-content: center;
         gap: 0.8rem;
-        flex-wrap: wrap; /* Si hay muchos, envuélvelos */
+        flex-wrap: wrap;
+        /* Si hay muchos, envuélvelos */
         font-size: 0.9rem;
     }
-    
+
     /* Home */
     header {
-        padding: 12rem 5% 4rem; /* Más espacio en la parte superior para compensar la nav fija */
+        padding: 12rem 5% 4rem;
+        /* Más espacio en la parte superior para compensar la nav fija */
         margin-top: 0;
     }
 
@@ -590,7 +596,8 @@ footer {
 
     /* Base */
     section {
-        padding: 3rem 4%; /* Reduce aún más el padding lateral */
+        padding: 3rem 4%;
+        /* Reduce aún más el padding lateral */
     }
 
     /* Header */
@@ -604,12 +611,13 @@ footer {
     }
 
     nav {
-        flex-direction: column; /* Apila los enlaces de la nav si es muy larga */
+        flex-direction: column;
+        /* Apila los enlaces de la nav si es muy larga */
         align-items: center;
         gap: 0.5rem;
         margin-top: 0.5rem;
     }
-    
+
     /* Home */
     header {
         padding: 10rem 4% 3rem;
@@ -618,10 +626,12 @@ footer {
     header h1 {
         font-size: 1.8rem;
     }
-    
+
     /* Contenido */
-    #about-us p, #about-us li {
-        font-size: 1rem; /* Mantiene la legibilidad */
+    #about-us p,
+    #about-us li {
+        font-size: 1rem;
+        /* Mantiene la legibilidad */
     }
 
     .subtitle h3 {
