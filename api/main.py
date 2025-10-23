@@ -16,7 +16,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "https://tu-frontend.vercel.app",  # Cambia por tu dominio real
-        "https://brandon-daza-portfolio.vercel.app",
+        "https://porfolio-chop-code-solutions-brando.vercel.app",
         "*",  # Temporal para pruebas
     ],
     allow_credentials=True,
