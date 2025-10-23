@@ -6,9 +6,9 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Portafolio - Brandon Daza | Fundador de ChopCode Solutions</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="/img/favicon/favicon.png">
+    <link rel="icon" type="image/png" href="img/favicon/favicon.png">
 </head>
 
 <body>
@@ -19,11 +19,11 @@
             </a>
         </div>
         <nav>
-            <a href="#home">>Inicio<</a>
+            <a href="#home"> >Inicio<< </a>
             <a href="#about-us">>Sobre mí<</a>
             <a href="#projects">>Mis Proyectos<</a>
             <a href="#contact">>Contáctame<</a>
-            <a href="#">>Blog<</a>
+            <!-- <a href="#">>Blog<</a> -->
         </nav>
     </div>
 
@@ -79,9 +79,9 @@
                 </div>
                 <div class="carrusel">
                     <div class="carrusel-imagenes">
-                        <img src="/img/img-projetcs/ruta-go/RutaGo-LogIn.jpg" alt="Login de Ruta Go">
-                        <img src="/img/img-projetcs/ruta-go/RutaGo-HomePassager.jpg" alt="Home de pasajero">
-                        <img src="/img/img-projetcs/ruta-go/RutaGo-CreateReservation.jpg" alt="Creación de reservas">
+                        <img src="img/img-projetcs/ruta-go/RutaGo-LogIn.jpg" alt="Login de Ruta Go">
+                        <img src="img/img-projetcs/ruta-go/RutaGo-HomePassager.jpg" alt="Home de pasajero">
+                        <img src="img/img-projetcs/ruta-go/RutaGo-CreateReservation.jpg" alt="Creación de reservas">
                     </div>
                     <button class="carrusel-btn prev">&#10094;</button>
                     <button class="carrusel-btn next">&#10095;</button>
@@ -121,10 +121,10 @@
                 </div>
                 <div class="carrusel">
                     <div class="carrusel-imagenes">
-                        <img src="/img/img-projetcs/simplify-biz/Simplify-biz-Menu-inicial.png" alt="Menu principal">
-                        <img src="/img/img-projetcs/simplify-biz/Simplify-biz-Registro-productos.png"
+                        <img src="img/img-projetcs/simplify-biz/Simplify-biz-Menu-inicial.png" alt="Menu principal">
+                        <img src="img/img-projetcs/simplify-biz/Simplify-biz-Registro-productos.png"
                             alt="Menu principal">
-                        <img src="/img/img-projetcs/simplify-biz/Simplify-biz-Registro-ventas.png"
+                        <img src="img/img-projetcs/simplify-biz/Simplify-biz-Registro-ventas.png"
                             alt="Reportes empresariales">
                     </div>
                     <button class="carrusel-btn prev">&#10094;</button>
@@ -160,9 +160,9 @@
                 </div>
                 <div class="carrusel">
                     <div class="carrusel-imagenes">
-                        <img src="/img/img-projetcs/he-zu/He-Zu-Eternal.png" alt="Página principal del e-commerce">
-                        <img src="/img/img-projetcs/he-zu/He-Zu-Eternal-Catalogo1.png" alt="Carrito de compras">
-                        <img src="/img/img-projetcs/he-zu/He-Zu-Eternal- Catalogo.png" alt="Catálogo de productos">
+                        <img src="img/img-projetcs/he-zu/He-Zu-Eternal.png" alt="Página principal del e-commerce">
+                        <img src="img/img-projetcs/he-zu/He-Zu-Eternal-Catalogo1.png" alt="Carrito de compras">
+                        <img src="img/img-projetcs/he-zu/He-Zu-Eternal- Catalogo.png" alt="Catálogo de productos">
                     </div>
                     <button class="carrusel-btn prev">&#10094;</button>
                     <button class="carrusel-btn next">&#10095;</button>
@@ -221,7 +221,7 @@
                 </div>
             </div>
 
-            <form class="contact-form" action="[URL_DEL_SERVICIO_DE_FORMULARIO]" method="POST">
+            <form class="contact-form" id="contactForm">
                 <h3>// Enviar Mensaje Cifrado</h3>
                 <div class="form-group">
                     <label for="name">> Nombre:</label>
@@ -237,6 +237,7 @@
                         placeholder="Escribe tu consulta..."></textarea>
                 </div>
                 <button type="submit" class="cta-button send-button">Ejecutar Envío (Enviar)</button>
+                <div id="formMessage" style="margin-top: 15px; min-height: 20px;"></div>
             </form>
         </div>
     </section>
@@ -250,10 +251,9 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/js/carrusel.js"></script>
-</body>
-
-</html>
+    <script src="js/carrusel.js"></script>
+    <script src="js/contact-form.js">
+    </script>
 </body>
 
 </html>
