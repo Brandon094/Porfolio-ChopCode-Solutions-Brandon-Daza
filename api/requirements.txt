@@ -1,8 +1,6 @@
-"""
-requirements.txt - Archivo de dependencias para el backend del portfolio
-Autor: Brandon Daza
-Descripción: Especifica las versiones exactas de las dependencias para garantizar compatibilidad
-"""
+#requirements.txt - Archivo de dependencias para el backend del portfolio
+#Autor: Brandon Daza
+#Descripción: Especifica las versiones exactas de las dependencias para garantizar compatibilidad
 
 # =============================================
 # FRAMEWORK WEB PRINCIPAL
