@@ -18,26 +18,35 @@ document.getElementById('contactForm').addEventListener('submit', async function
         submitButton.disabled = true;
         submitButton.textContent = '🔄 Enviando...';
 
-        // Construir URL clara y consistente usando el origen actual.
-        // Evitamos múltiples "fallbacks" que pueden enmascarar el error real.
-        const url = `${window.location.origin}/api/contact`;
+        // En desarrollo usa localhost, en producción usa la URL relativa
+        const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const apiUrl = isDevelopment 
+            ? 'http://localhost:8000/api/contact'
+            : '/api/contact';
+        
+        console.info('🎯 URL del backend:', apiUrl);
+        console.info('📦 Datos a enviar:', formData);
 
         let response = null;
         try {
-            console.info('Enviando formulario a:', url);
-            response = await fetch(url, {
+            console.info('🚀 Iniciando petición POST a:', apiUrl);
+            const fetchOptions = {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Origin': window.location.origin
                 },
                 body: JSON.stringify(formData)
-            });
+            };
+            console.info('⚙️ Opciones de fetch:', fetchOptions);
+            
+            response = await fetch(apiUrl, fetchOptions);
 
-            console.info(`Respuesta recibida desde ${url}:`, response.status, response.statusText);
+            console.info(`Respuesta recibida desde ${apiUrl}:`, response.status, response.statusText);
         } catch (err) {
-            console.error('Error en fetch a', url, err);
+            console.error('Error en fetch a', apiUrl, err);
             messageDiv.style.color = '#ff4444';
             messageDiv.className = 'error-message';
             messageDiv.innerHTML = '❌ No se pudo conectar con el servidor. Revisa la consola para más detalles.';
