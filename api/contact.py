@@ -84,21 +84,53 @@ def send_email(name: str, email: str, message: str) -> bool:
 
 async def contact_form(contact: ContactForm):
     try:
+        # Log de diagnóstico
+        print("\n🔍 Diagnóstico de la petición:")
+        print(f"├─ Nombre: {contact.name}")
+        print(f"├─ Email: {contact.email}")
+        print(f"└─ Longitud del mensaje: {len(contact.message)}")
+
+        # Validación básica
         if len(contact.name.strip()) < 2:
             raise HTTPException(status_code=400, detail="El nombre debe tener al menos 2 caracteres")
 
         if len(contact.message.strip()) < 10:
             raise HTTPException(status_code=400, detail="El mensaje debe tener al menos 10 caracteres")
 
-        email_sent = send_email(contact.name, contact.email, contact.message)
+        # Verificar variables de entorno antes de intentar enviar
+        env_vars = {
+            "SMTP_SERVER": os.getenv("SMTP_SERVER"),
+            "SMTP_PORT": os.getenv("SMTP_PORT"),
+            "SENDER_EMAIL": os.getenv("SENDER_EMAIL"),
+            "SENDER_PASSWORD": bool(os.getenv("SENDER_PASSWORD")),
+            "RECEIVER_EMAIL": os.getenv("RECEIVER_EMAIL")
+        }
 
-        if email_sent:
-            return {"success": True, "message": "✅ Mensaje enviado correctamente. Te contactaré pronto."}
-        else:
-            raise HTTPException(status_code=500, detail="Error al enviar el mensaje. Por favor, intenta nuevamente.")
+        print("\n📋 Estado de variables de entorno:")
+        for var, value in env_vars.items():
+            print(f"├─ {var}: {'✅' if value else '❌'}")
 
-    except HTTPException:
+        # Por ahora, solo retornamos éxito sin enviar email
+        return {
+            "success": True,
+            "message": "✅ Datos recibidos correctamente",
+            "debug_info": {
+                "env_vars": {k: "✅" if v else "❌" for k, v in env_vars.items()},
+                "validations_passed": True
+            }
+        }
+
+    except HTTPException as he:
+        print(f"⚠️ Error de validación: {he.detail}")
         raise
     except Exception as e:
-        print(f"🔥 Error en lógica de contacto: {e}")
-        raise HTTPException(status_code=500, detail="Error interno del servidor. Por favor, intenta más tarde.")
+        print(f"🔥 Error en lógica de contacto: {str(e)}")
+        print(f"└─ Tipo de error: {type(e).__name__}")
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "message": "Error interno del servidor",
+                "error_type": type(e).__name__,
+                "error_details": str(e)
+            }
+        )
