@@ -13,17 +13,34 @@ class ContactForm(BaseModel):
 
 
 def send_email(name: str, email: str, message: str) -> bool:
+    print("\n📧 Iniciando envío de email:")
     try:
-        smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-        smtp_port = int(os.getenv("SMTP_PORT", "587"))
+        # Obtener configuración
+        smtp_server = os.getenv("SMTP_SERVER")
+        smtp_port = os.getenv("SMTP_PORT")
         sender_email = os.getenv("SENDER_EMAIL")
         sender_password = os.getenv("SENDER_PASSWORD")
         receiver_email = os.getenv("RECEIVER_EMAIL", sender_email)
 
-        if not sender_email or not sender_password:
-            print("❌ Faltan credenciales de email")
-            return False
+        # Validar configuración
+        if not smtp_server:
+            raise ValueError("SMTP_SERVER no está configurado")
+        if not smtp_port:
+            raise ValueError("SMTP_PORT no está configurado")
+        if not sender_email:
+            raise ValueError("SENDER_EMAIL no está configurado")
+        if not sender_password:
+            raise ValueError("SENDER_PASSWORD no está configurado")
+        if not receiver_email:
+            raise ValueError("RECEIVER_EMAIL no está configurado")
 
+        print("├─ Configuración SMTP:")
+        print(f"│  ├─ Servidor: {smtp_server}")
+        print(f"│  ├─ Puerto: {smtp_port}")
+        print(f"│  ├─ Remitente: {sender_email}")
+        print(f"│  └─ Destinatario: {receiver_email}")
+
+        # Preparar mensaje
         msg = MIMEMultipart()
         msg["Subject"] = f"📧 Nuevo mensaje de {name}"
         msg["From"] = sender_email
@@ -38,18 +55,31 @@ def send_email(name: str, email: str, message: str) -> bool:
         """
 
         msg.attach(MIMEText(html_content, "html"))
+        print("├─ Mensaje preparado correctamente")
 
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
+        # Enviar email
+        print("├─ Conectando al servidor SMTP...")
+        with smtplib.SMTP(smtp_server, int(smtp_port)) as server:
+            print("├─ Iniciando TLS...")
             server.starttls()
+            print("├─ Autenticando...")
             server.login(sender_email, sender_password)
+            print("├─ Enviando mensaje...")
             server.send_message(msg)
 
-        print("✅ Email enviado correctamente")
+        print("└─ ✅ Email enviado correctamente")
         return True
 
+    except ValueError as e:
+        print(f"└─ ❌ Error de configuración: {str(e)}")
+        raise
+    except smtplib.SMTPAuthenticationError:
+        print("└─ ❌ Error de autenticación SMTP: credenciales incorrectas")
+        raise ValueError("Error de autenticación: verifica SENDER_EMAIL y SENDER_PASSWORD")
     except Exception as e:
-        print(f"❌ Error enviando email: {e}")
-        return False
+        print(f"└─ ❌ Error enviando email: {str(e)}")
+        print(f"   └─ Tipo: {type(e).__name__}")
+        raise
 
 
 async def contact_form(contact: ContactForm):
