@@ -1,112 +1,67 @@
 """
-Backend API para portfolio personal - Configurado para Vercel
+api/main.py - handler mínimo para Vercel
+
+Este archivo expone un endpoint POST /api/contact (para uso con FastAPI local)
+y un `main(request)` que Vercel invoca al mapear rutas a este archivo.
+La lógica real de contacto está en `api/contact.py`.
 """
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-import smtplib
-import os
-from email.mime.text import MIMEText  # ← CORREGIDO
-from email.mime.multipart import MIMEMultipart
+
+# Importar la lógica de contacto del módulo local
+try:
+    # Cuando se importa como paquete (p. ej. en Vercel)
+    from .contact import ContactForm, contact_form
+except Exception:
+    # Permite ejecutar localmente con 'python api/main.py' si se añade al PYTHONPATH
+    from contact import ContactForm, contact_form
+
 
 app = FastAPI()
 
-# CORS
+# CORS básico para pruebas
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Temporal para pruebas
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-class ContactForm(BaseModel):
-    name: str
-    email: str
-    message: str
-
-def send_email(name: str, email: str, message: str) -> bool:
-    try:
-        smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-        smtp_port = int(os.getenv("SMTP_PORT", "587"))
-        sender_email = os.getenv("SENDER_EMAIL")
-        sender_password = os.getenv("SENDER_PASSWORD")
-        receiver_email = os.getenv("RECEIVER_EMAIL", sender_email)
-
-        if not sender_email or not sender_password:
-            print("❌ Faltan credenciales de email")
-            return False
-
-        msg = MIMEMultipart()
-        msg["Subject"] = f"📧 Nuevo mensaje de {name}"
-        msg["From"] = sender_email
-        msg["To"] = receiver_email
-
-        html_content = f"""
-        <h2>Nuevo mensaje desde tu portfolio</h2>
-        <p><strong>Nombre:</strong> {name}</p>
-        <p><strong>Email:</strong> {email}</p>
-        <p><strong>Mensaje:</strong></p>
-        <p>{message}</p>
-        """
-        
-        msg.attach(MIMEText(html_content, "html"))  # ← CORREGIDO
-
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()
-            server.login(sender_email, sender_password)
-            server.send_message(msg)
-
-        print("✅ Email enviado correctamente")
-        return True
-        
-    except Exception as e:
-        print(f"❌ Error enviando email: {e}")
-        return False
 
 @app.post("/api/contact")
-async def contact_form(contact: ContactForm):
-    try:
-        if len(contact.name.strip()) < 2:
-            raise HTTPException(status_code=400, detail="El nombre debe tener al menos 2 caracteres")
-            
-        if len(contact.message.strip()) < 10:
-            raise HTTPException(status_code=400, detail="El mensaje debe tener al menos 10 caracteres")
+async def api_contact(contact: ContactForm):
+    return await contact_form(contact)
 
-        email_sent = send_email(contact.name, contact.email, contact.message)
 
-        if email_sent:
-            return {"success": True, "message": "✅ Mensaje enviado correctamente. Te contactaré pronto."}
-        else:
-            raise HTTPException(status_code=500, detail="Error al enviar el mensaje. Por favor, intenta nuevamente.")
-            
-    except HTTPException:
-        raise
-    except Exception as e:
-        print(f"🔥 Error en servidor: {e}")
-        raise HTTPException(status_code=500, detail="Error interno del servidor. Por favor, intenta más tarde.")
+@app.get("/")
+async def health_check():
+    """Ruta de verificación rápida para saber que el servicio está arriba."""
+    return {"status": "ok", "message": "API de contacto funcionando"}
 
-# Handler para Vercel
+
+# Handler que Vercel llama. Se encarga de preflight y delega en contact_form para POST.
 async def handler(request):
-    from fastapi import Request
-    from fastapi.responses import JSONResponse
-    
-    if request.method == "POST" and request.url.path == "/api/contact":
+    # Preflight
+    if request.method == "OPTIONS":
+        return JSONResponse(status_code=204, content={}, headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        })
+
+    if request.method == "POST":
         try:
             body = await request.json()
             contact = ContactForm(**body)
-            return await contact_form(contact)
+            response = await contact_form(contact)
+            return JSONResponse(content=response, headers={"Access-Control-Allow-Origin": "*"})
         except Exception as e:
-            return JSONResponse(
-                status_code=500,
-                content={"error": str(e)}
-            )
-    else:
-        return JSONResponse(
-            content={"message": "Backend funcionando ✅"}
-        )
+            return JSONResponse(status_code=500, content={"error": str(e)})
 
-# Función principal que Vercel ejecuta
+    return JSONResponse(status_code=405, content={"message": "Método no permitido."})
+
+
 def main(request):
     import asyncio
     return asyncio.run(handler(request))
