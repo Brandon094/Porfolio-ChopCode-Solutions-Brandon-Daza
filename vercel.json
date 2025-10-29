@@ -12,27 +12,23 @@
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
-            "dest": "/api/main.py",
-            "methods": ["GET", "POST", "OPTIONS"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                "Access-Control-Max-Age": "86400"
-            }
+            "src": "/api/contact",
+            "dest": "api/main.py",
+            "methods": ["POST", "OPTIONS"]
         },
         {
-            "src": "/static/(.*)",
-            "dest": "/public/static/$1",
-            "headers": {
-                "Cache-Control": "public, max-age=31536000, immutable"
-            }
+            "src": "/api/(.*)",
+            "dest": "api/main.py"
+        },
+        {
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "/public/$1",
-            "continue": true
+            "dest": "/public/$1"
         }
-    ]
+    ],
+    "env": {
+        "PYTHONPATH": "."
+    }
 }
