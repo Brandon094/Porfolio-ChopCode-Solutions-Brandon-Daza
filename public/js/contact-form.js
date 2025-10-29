@@ -18,55 +18,29 @@ document.getElementById('contactForm').addEventListener('submit', async function
         submitButton.disabled = true;
         submitButton.textContent = '🔄 Enviando...';
 
-        // Usar ruta relativa primaria; si falla (405 o no responde), probamos fallbacks y mostramos logs.
-        // Ajusta o elimina los fallbacks si sabes la URL final en producción.
-        const candidateUrls = [
-            '/api/contact',       // ruta esperada
-            '/api/main.py',       // ruta que Vercel a veces expone
-            '/contact',           // prueba por si la petición está llegando sin /api
-        ];
+        // Construir URL clara y consistente usando el origen actual.
+        // Evitamos múltiples "fallbacks" que pueden enmascarar el error real.
+        const url = `${window.location.origin}/api/contact`;
 
         let response = null;
-        let lastError = null;
+        try {
+            console.info('Enviando formulario a:', url);
+            response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
-        for (const url of candidateUrls) {
-            try {
-                console.info('Intentando enviar formulario a:', url);
-                response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                // Log básico
-                console.info(`Respuesta recibida desde ${url}:`, response.status, response.statusText);
-
-                // Si recibimos 405 intentamos el siguiente fallback
-                if (response.status === 405) {
-                    lastError = { url, status: response.status };
-                    console.warn('405 recibido en', url, '- probando siguiente fallback.');
-                    response = null;
-                    continue; // intentar siguiente url
-                }
-
-                // Si hay respuesta (no 405), salimos del loop y la procesamos
-                break;
-            } catch (err) {
-                lastError = { url, error: err };
-                console.error('Error enviando a', url, err);
-                response = null;
-                // intentar siguiente url
-            }
-        }
-
-        if (!response) {
-            // Ningún endpoint respondió correctamente
+            console.info(`Respuesta recibida desde ${url}:`, response.status, response.statusText);
+        } catch (err) {
+            console.error('Error en fetch a', url, err);
             messageDiv.style.color = '#ff4444';
             messageDiv.className = 'error-message';
-            messageDiv.innerHTML = '❌ No se pudo conectar con el servidor (probé varios endpoints). Revisa la consola para más detalles.';
-            console.error('Fallaron todos los intentos. Último error/fallback:', lastError);
+            messageDiv.innerHTML = '❌ No se pudo conectar con el servidor. Revisa la consola para más detalles.';
             return;
         }
         // Intentar parsear JSON solo si el servidor responde JSON; si no, usar texto plano.
