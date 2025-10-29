@@ -43,8 +43,18 @@ document.getElementById('contactForm').addEventListener('submit', async function
             console.info('⚙️ Opciones de fetch:', fetchOptions);
             
             response = await fetch(apiUrl, fetchOptions);
-
+            
             console.info(`Respuesta recibida desde ${apiUrl}:`, response.status, response.statusText);
+            
+            // Si es un error 500, intentamos obtener más detalles
+            if (response.status === 500) {
+                const errorData = await response.json();
+                console.error('Detalles del error del servidor:', errorData);
+                messageDiv.style.color = '#ff4444';
+                messageDiv.className = 'error-message';
+                messageDiv.innerHTML = `❌ Error del servidor: ${errorData.detail || errorData.message || 'Error desconocido'}`;
+                return;
+            }
         } catch (err) {
             console.error('Error en fetch a', apiUrl, err);
             messageDiv.style.color = '#ff4444';
