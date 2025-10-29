@@ -45,26 +45,71 @@ app.add_middleware(
 
 
 @app.post("/api/contact")
-async def api_contact(contact: ContactForm, request: Request):
+async def api_contact(request: Request):
     try:
-        # Log detallado de la petición
+        # Log detallado de la petición y variables de entorno
         print("\n📨 Nueva petición de contacto")
-        print(f"├─ Método: {request.method}")
-        print(f"├─ URL: {request.url}")
-        print(f"├─ Headers:")
-        for header, value in request.headers.items():
-            print(f"│  └─ {header}: {value}")
-        print(f"├─ Nombre: {contact.name}")
-        print(f"├─ Email: {contact.email}")
-        print(f"└─ Longitud del mensaje: {len(contact.message)} caracteres")
-
-        result = await contact_form(contact)
-        print("✅ Contacto procesado correctamente")
-        return result
+        
+        # 1. Log de la petición
+        print("├─ Detalles de la petición:")
+        print(f"│  ├─ Método: {request.method}")
+        print(f"│  ├─ URL: {request.url}")
+        print(f"│  └─ Headers: {dict(request.headers)}")
+        
+        # 2. Verificar variables de entorno
+        env_vars = {
+            "SMTP_SERVER": os.getenv("SMTP_SERVER"),
+            "SMTP_PORT": os.getenv("SMTP_PORT"),
+            "SENDER_EMAIL": os.getenv("SENDER_EMAIL"),
+            "SENDER_PASSWORD": bool(os.getenv("SENDER_PASSWORD")),
+            "RECEIVER_EMAIL": os.getenv("RECEIVER_EMAIL")
+        }
+        
+        print("├─ Variables de entorno:")
+        for var, value in env_vars.items():
+            print(f"│  ├─ {var}: {'✅' if value else '❌'}")
+        
+        # 3. Leer y validar el body
+        body = await request.json()
+        print(f"├─ Body recibido: {body}")
+        
+        # 4. Validar datos
+        contact = ContactForm(**body)
+        
+        # 5. Devolver respuesta de prueba
+        return {
+            "success": True,
+            "message": "Datos recibidos correctamente",
+            "debug": {
+                "env_vars": {k: "✅" if v else "❌" for k, v in env_vars.items()},
+                "request_data": {
+                    "method": request.method,
+                    "url": str(request.url),
+                    "headers": dict(request.headers)
+                },
+                "contact_data": {
+                    "name": contact.name,
+                    "email": contact.email,
+                    "message_length": len(contact.message)
+                }
+            }
+        }
+        
     except Exception as e:
-        print(f"❌ Error en endpoint /api/contact: {str(e)}")
-        print(f"└─ Tipo de error: {type(e).__name__}")
-        raise
+        error_detail = {
+            "error_type": type(e).__name__,
+            "error_message": str(e),
+            "location": "api_contact endpoint"
+        }
+        print(f"❌ Error en endpoint /api/contact:")
+        print(f"└─ {error_detail}")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "detail": error_detail
+            }
+        )
 
 
 @app.get("/")
