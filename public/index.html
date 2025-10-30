@@ -18,11 +18,16 @@
                 <p class="logo"></p>
             </a>
         </div>
+        <button class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <nav>
-            <a href="#home"> Inicio </a>
-            <a href="#about-us"> Sobre mí </a>
-            <a href="#projects"> Mis Proyectos </a>
-            <a href="#contact"> Contáctame </a>
+            <a href="#home"> >>$ Inicio </a>
+            <a href="#about-us"> >>$ Sobre mí </a>
+            <a href="#projects"> >>$ Mis Proyectos </a>
+            <a href="#contact"> >>$ Contáctame </a>
             <!-- <a href="#">>Blog<</a> -->
         </nav>
     </div>
@@ -30,8 +35,7 @@
     <header id="home">
         <h1>Brandon Daza</h1>
         <p>Fundador de <span class="neon-text">ChopCode Solutions</span> | Desarrollador Full-Stack & Arquitecto de
-            Soluciones Digitales</p>
-        <p>Especializado en convertir desafíos complejos en aplicaciones web eficientes, escalables y fáciles de usar.
+            Soluciones Digitales.
         </p>
         <a href="#projects" class="cta-button">Ver mi Trabajo</a>
     </header>
@@ -205,42 +209,20 @@
         <div class="contact-content">
             <div class="contact-info">
                 <h3>// Datos de Acceso Digital</h3>
-                <p class="data-line">Email: <a href="mailto:dazace94@gmail.com" class="neon-link">dazace94@gmail.com</a>
+                <p class="data-line"><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:dazace94@gmail.com"
+                        class="neon-link">dazace94@gmail.com </a>
                 </p>
-                <p class="data-line">LinkedIn: <a href="https://www.linkedin.com/in/brandondaza/" target="_blank"
-                        class="neon-link">/in/brandondaza</a></p>
-                <p class="data-line">GitHub: <a href="https://github.com/Brandon094" target="_blank"
-                        class="neon-link">/Brandon094</a></p>
-                <p class="data-line">Ubicación: <span class="neon-text">Latam [Remoto]</span></p>
+                <p class="data-line"><i class="fab fa-linkedin"></i> LinkedIn: <a
+                        href="https://www.linkedin.com/in/brandondaza/" target="_blank" class="neon-link">
+                        /in/brandondaza </a></p>
+                <p class="data-line"><i class="fab fa-github"></i> GitHub: <a href="https://github.com/Brandon094"
+                        target="_blank" class="neon-link"> /Brandon094 </a></p>
+                <p class="data-line"><i class="fab fa-whatsapp"></i> Whatsapp: <a href="https://wa.me/573222824941"
+                        target="_blank" class="neon-link"> 322-282-4941 </a></p>
+                <p class="data-line"><i class="fa-solid fa-location-dot"></i> Ubicación: <span class="neon-text">Latam
+                        [Remoto] </span></p>
 
-        <div class="social-links">
-            <a href="https://github.com/Brandon094" target="_blank" aria-label="GitHub"><i
-                class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/brandondaza/" target="_blank" aria-label="LinkedIn"><i
-                class="fab fa-linkedin"></i></a>
-            <a href="https://wa.me/573222824941" target="_blank" aria-label="WhatsApp" rel="noopener noreferrer"><i
-                class="fab fa-whatsapp"></i></a>
-        </div>
             </div>
-
-            <form class="contact-form" id="contactForm">
-                <h3>// Enviar Mensaje Cifrado</h3>
-                <div class="form-group">
-                    <label for="name">> Nombre:</label>
-                    <input type="text" id="name" name="name" required placeholder="Ingresa tu ID">
-                </div>
-                <div class="form-group">
-                    <label for="email">> Correo:</label>
-                    <input type="email" id="email" name="email" required placeholder="tu@dominio.com">
-                </div>
-                <div class="form-group">
-                    <label for="message">> Mensaje:</label>
-                    <textarea id="message" name="message" required rows="5"
-                        placeholder="Escribe tu consulta..."></textarea>
-                </div>
-                <button type="submit" class="cta-button send-button">Ejecutar Envío (Enviar)</button>
-                <div id="formMessage" style="margin-top: 15px; min-height: 20px;"></div>
-            </form>
         </div>
     </section>
 
@@ -254,8 +236,8 @@
 
     <!-- Scripts -->
     <script src="js/carrusel.js"></script>
-    <script src="js/contact-form.js">
-    </script>
+    <script src="js/contact-form.js"></script>
+    <script src="js/menu.js"></script>
 </body>
 
 </html>
