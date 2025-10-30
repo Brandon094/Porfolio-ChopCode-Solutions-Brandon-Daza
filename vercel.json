@@ -13,18 +13,12 @@
     "routes": [
         {
             "src": "/api/contact",
-            "dest": "/api/main.py",
-            "methods": ["POST", "OPTIONS"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                "Access-Control-Max-Age": "86400"
-            }
+            "dest": "api/main.py",
+            "methods": ["POST", "OPTIONS"]
         },
         {
             "src": "/api/(.*)",
-            "dest": "/api/main.py"
+            "dest": "api/main.py"
         },
         {
             "handle": "filesystem"
@@ -34,10 +28,7 @@
             "dest": "/public/$1"
         }
     ],
-    "functions": {
-        "api/main.py": {
-            "memory": 1024,
-            "maxDuration": 10
-        }
+    "env": {
+        "PYTHONPATH": "."
     }
 }
