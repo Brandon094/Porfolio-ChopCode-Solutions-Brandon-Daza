@@ -14,7 +14,10 @@
         {
             "src": "/api/contact",
             "dest": "/api/main.py",
-            "methods": ["POST", "OPTIONS"],
+            "methods": [
+                "POST",
+                "OPTIONS"
+            ],
             "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -35,9 +38,13 @@
         }
     ],
     "functions": {
-        "api/main.py": {
+        "api/contact": {
             "memory": 1024,
             "maxDuration": 10
         }
+    },
+    "api/main.py": {
+        "memory": 1024,
+        "maxDuration": 10
     }
 }
