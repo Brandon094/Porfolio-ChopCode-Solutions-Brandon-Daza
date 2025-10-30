@@ -477,7 +477,7 @@ footer {
         justify-content: space-between;
         align-items: center;
         padding: 0.8rem 5%;
-        position: relative;
+        position: fixed;
     }
 
     .logo-container {
